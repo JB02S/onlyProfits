@@ -10,7 +10,7 @@ class ViewTestCase(TestCase):
         self.assertEquals(self.client.get("onlyProfits:/").status_code, 200)
     
     def test_check_template(self):
-        self.assertTemplateUsed(self.client.get("onlyProfits:/"), "templates/onlyProfits.html")
+        self.assertTemplateUsed(self.client.get("onlyProfits:/"), "onlyProfits_app/onlyProfits.html")
     
     def test_context_dictionary(self):
         # TODO: Write test to check context dictionary
