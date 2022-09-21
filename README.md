@@ -13,13 +13,11 @@ This project aims to:
 ## Project Structure
 ### Database Entity-Relationship Diagram
 <details>
-![Database Entity-Relationship Diagram](./diagrams/er.drawio.svg)
 <img src="./diagrams/er.drawio.svg">
 </details>
 
 ### Site Map Diagram
 <details>
-![Site Map Diagram](./diagrams/site_map.drawio.svg)
 <img src="./diagrams/site_map.drawio.svg">
 </details>
 
