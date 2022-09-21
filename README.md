@@ -10,6 +10,16 @@ This project aims to:
 * Create a web interface to display this data
 * Allow users to create an account which can save favourite stocks and/or cryptocurrencies
 
+## Project Structure
+### Database Entity-Relationship Diagram
+![Database Entity-Relationship Diagram](./diagrams/er.drawio.svg)
+<img src="./diagrams/er.drawio.svg">
+
+### Site Map Diagram
+![Site Map Diagram](./diagrams/site_map.drawio.svg)
+<img src="./diagrams/site_map.drawio.svg">
+
+
 ## Running the project
 To run the project, you will need to have Python 3+ installed. You will also need to install the requirements in the requirements.txt file. To do this, run the following command while in the project directory (you may need to use `pip3` instead of `pip` depending on your system):
 ```
@@ -19,7 +29,6 @@ The project can then be run by running the following command (you may need to pr
 ```
 manage.py runserver
 ```
-
 
 ## Running Tests
 To run the tests, run the following command (again you may need to prepend this with `python` or `python3` depending on your system):
