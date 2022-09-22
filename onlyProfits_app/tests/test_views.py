@@ -5,7 +5,7 @@ from django.urls import reverse
 from onlyProfits_app.models import Market, User
 
 class IndexViewTest(TestCase):
-    def setUpTestData(cls):
+    def set_up_test_data(cls):
         User.objects.create(username="test_user", password="test_password")
         for i in range(5):
             Market.objects.create(ticker="EXAMPLE" + str(i), values=[i, i + 3, i + 2, i + 4, i + 5])
@@ -27,7 +27,7 @@ class CreateAccountViewTest(TestCase):
         self.assertIsNone(self.client.get(reverse("onlyProfits_app:create_account")).context)
 
 class AccountViewTest(TestCase):
-    def setUpTestData(cls):
+    def set_up_test_data(cls):
         for i in range(5):
             Market.objects.create(ticker="EXAMPLE" + str(i), values=[i, i + 3, i + 2, i + 4, i + 5])
         User.objects.create(username="test_user", password="test_password", saved_markets=["EXAMPLE1", "EXAMPLE2"])
@@ -42,7 +42,7 @@ class AccountViewTest(TestCase):
         self.assertEqual(response.context["user"].saved_markets, expected_saved_markets)
 
 class MarketsViewTest(TestCase):
-    def setUpTestData(cls):
+    def set_up_test_data(cls):
         for i in range(5):
             Market.objects.create(ticker="EXAMPLE" + str(i), values=[i, i + 3, i + 2, i + 4, i + 5])
     
@@ -55,7 +55,7 @@ class MarketsViewTest(TestCase):
         self.assertEqual(response.context["markets"], expected_markets_order)        
 
 class SavedMarketsViewTest(TestCase):
-    def setUpTestData(cls):
+    def set_up_test_data(cls):
         for i in range(3):
             Market.objects.create(ticker="EXAMPLE" + str(i), values=[i, i + 3, i + 2, i + 4, i + 5])
         User.objects.create(username="test_user", password="test_password", saved_markets=["EXAMPLE2", "EXAMPLE3"])
@@ -69,7 +69,7 @@ class SavedMarketsViewTest(TestCase):
         self.assertEqual(response.context["saved_markets"], expected_saved_markets)
 
 class SpecficMarketViewTest(TestCase):
-    def setUpTestData(cls):
+    def set_up_test_data(cls):
         Market.objects.create(ticker="EXAMPLE1", values=[2, 3, 1, 6, 10])
     
     def test_check_template(self):
