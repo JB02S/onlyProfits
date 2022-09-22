@@ -1,13 +1,8 @@
 from django.test import TestCase
+from django.urls import reverse
+
 
 class ViewTestCase(TestCase):
-    @classmethod
-    def setUp(self):
-        pass
-    
-    def test_url_exists(self):
-        # self.assertEquals(self.client.get(reverse("onlyProfits:/")).status_code, 200)
-        self.assertEquals(self.client.get("onlyProfits:/").status_code, 200)
     
     def test_check_template(self):
         self.assertTemplateUsed(self.client.get("onlyProfits:/"), "onlyProfits_app/onlyProfits.html")

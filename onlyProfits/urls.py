@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
+from onlyProfits_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('onlyProfits_app/', include('onlyProfits_app.urls')),
-    path('', include('onlyProfits_app.urls')),
+    path('', views.IndexView.as_view(), name='index')
 ]
