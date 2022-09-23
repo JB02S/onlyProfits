@@ -6,5 +6,5 @@ class Market(models.Model):
     pass
 
 
-class OnlyProfitsUser(models.Model):
+class OnlyProfitsUser(User):
     pass

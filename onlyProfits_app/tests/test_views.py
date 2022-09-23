@@ -1,3 +1,4 @@
+from typing import Dict
 from django.test import TestCase
 from django.urls import reverse
 
@@ -39,8 +40,8 @@ class AccountViewTest(TestCase):
         self.assertTemplateUsed(self.client.get("onlyProfits:/account/test_user"), "onlyProfits_app/account.html")
     
     def test_context_dictionary(self):
-        response = self.client.get(reverse("onlyProfits_app:account", kwargs="test_user"))
-        expected_saved_markets = self.client.get(reverse("onlyProfits_app:saved_markets", kwargs="test_user"))
+        response = self.client.get(reverse("onlyProfits_app:account", kwargs={"username": "test_user"}))
+        expected_saved_markets = self.client.get(reverse("onlyProfits_app:saved_markets", kwargs={"username": "test_user"}))
         self.assertTrue("user" in response.context)
         self.assertEqual(response.context["user"].saved_markets, expected_saved_markets)
 
@@ -69,7 +70,7 @@ class SavedMarketsViewTest(TestCase):
         self.assertTemplateUsed(self.client.get("onlyProfits:/test_user/saved_markets"), "onlyProfits_app/saved_markets.html")
     
     def test_context_dictionary(self):
-        response = self.client.get(reverse("onlyProfits_app:saved_markets", kwargs="test_user"))
+        response = self.client.get(reverse("onlyProfits_app:saved_markets", kwargs={"username": "test_user"}))
         expected_saved_markets = ["EXAMPLE2", "EXAMPLE3"]
         self.assertEqual(response.context["saved_markets"], expected_saved_markets)
 
@@ -82,6 +83,6 @@ class SpecficMarketViewTest(TestCase):
         self.assertTemplateUsed(self.client.get("onlyProfits:/market/EXAMPLE1"), "onlyProfits_app/specific_market.html")
     
     def test_context_dictionary(self):
-        response = self.client.get(reverse("onlyProfits_app:specific_market", kwargs="EXAMPLE1"))
-        self.assertTrue("market" in response.context)
+        response = self.client.get(reverse("onlyProfits_app:specific_market", kwargs={"ticker": "EXAMPLE1"}))
+        # self.assertTrue("market" in response.context)
         self.assertEqual(response.context["market"], Market.objects.get(ticker="EXAMPLE1"))
