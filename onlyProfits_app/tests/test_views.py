@@ -4,6 +4,7 @@ from django.urls import reverse
 # from django.contrib.auth.models import User
 from onlyProfits_app.models import Market, User
 
+
 class IndexViewTest(TestCase):
     def set_up_test_data(cls):
         User.objects.create(username="test_user", password="test_password")
@@ -19,12 +20,14 @@ class IndexViewTest(TestCase):
         self.assertEqual(response.context["markets"], expected_markets)
         self.assertTrue("markets" in response.context)
 
+
 class CreateAccountViewTest(TestCase):
     def test_check_template(self):
         self.assertTemplateUsed(self.client.get("onlyProfits:/create_account"), "onlyProfits_app/create_account.html")
     
     def test_context_dictionary(self):
         self.assertIsNone(self.client.get(reverse("onlyProfits_app:create_account")).context)
+
 
 class AccountViewTest(TestCase):
     def set_up_test_data(cls):
@@ -41,6 +44,7 @@ class AccountViewTest(TestCase):
         self.assertTrue("user" in response.context)
         self.assertEqual(response.context["user"].saved_markets, expected_saved_markets)
 
+
 class MarketsViewTest(TestCase):
     def set_up_test_data(cls):
         for i in range(5):
@@ -53,6 +57,7 @@ class MarketsViewTest(TestCase):
         response = self.client.get(reverse("onlyProfits_app:markets"))
         expected_markets_order = Market.objects.order_by("volume")
         self.assertEqual(response.context["markets"], expected_markets_order)        
+
 
 class SavedMarketsViewTest(TestCase):
     def set_up_test_data(cls):
@@ -67,6 +72,7 @@ class SavedMarketsViewTest(TestCase):
         response = self.client.get(reverse("onlyProfits_app:saved_markets", kwargs="test_user"))
         expected_saved_markets = ["EXAMPLE2", "EXAMPLE3"]
         self.assertEqual(response.context["saved_markets"], expected_saved_markets)
+
 
 class SpecficMarketViewTest(TestCase):
     def set_up_test_data(cls):
