@@ -1,3 +1,5 @@
+import json
+
 from django.test import TestCase
 
 from onlyProfits_app.models import *
@@ -5,7 +7,7 @@ from onlyProfits_app.models import *
 class MarketModelTestCase(TestCase):
     @classmethod
     def setUpTestData(cls):
-        Market.objects.create(ticker="EXAMPLE", values=[5, 4, 3, 2, 1], volume=66666)
+        Market.objects.create(ticker="EXAMPLE", values=json.dumps([5, 4, 3, 2, 1]), volume=66666)
     
     def test_ticker_label(self):
         market = Market.objects.get(ticker="EXAMPLE")

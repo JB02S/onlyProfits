@@ -9,6 +9,7 @@ class Market(models.Model):
     def __str__(self):
         return self.ticker
 
+
 class OnlyProfitsUser(models.Model):
     django_user = models.OneToOneField(User, on_delete=models.CASCADE)
     saved_markets = models.JSONField()

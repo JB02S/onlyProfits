@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <p>TOP 5 MARKETS</p>
+    <div id="div1"></div>
+    <script>
+        {% for market in markets %}
+        {#var object = JSON.parse( {{ market.values }} );#}
+        var ticker = "{{market.ticker}}";
+        console.log(ticker);
+        {#console.log( ticker + " : " + "MOST RECENT : " + object[10080] + " 24HR CHANGE : " +#}
+        {#      ( (object[10080 - 1440]  -  object[0]) / object[10080 - 1440]  ));#}
+        {#const p_element = document.createElement("p");#}
+        {#const node = document.createTextNode( ticker + " : " + "MOST RECENT : " + object[10080] + " 24HR CHANGE : " +#}
+        {#      ( (object[10080 - 1440]  -  object[0]) / object[10080 - 1440]  ));#}
+        {#para.appendChild(node);#}
+        {#const element = document.getElementById("div1");#}
+        {#element.appendChild(p_element );#}
+        {% endfor %}
+    </script>
+</body>
+
+</html>

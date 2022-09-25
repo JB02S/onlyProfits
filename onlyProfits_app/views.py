@@ -1,13 +1,21 @@
+import json
+
 from django.shortcuts import render
 from django.views import View
 
 from onlyProfits_app.models import Market
 
 
+
+def GenerateMarkets():
+    for i in ['BTCUSD', 'ETHUSD', 'MOIUSD', 'GUSUSD', 'WALTUSD']:
+        Market.objects.create(ticker=i, values=json.dumps([1, 5, 10, 2, 5, 78, 1, 4, 6]), volume=20000)
+
 class IndexView(View):
     def get(self, request):
+        GenerateMarkets()
         context_dict = {"markets": Market.objects.order_by("volume")[:5]}
-        return render(request, "onlyProfits_app/onlyProfits.html", context_dict)
+        return render(request, "onlyProfits_app/index.html", context_dict)
 
 
 class AccountView(View):

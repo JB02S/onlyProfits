@@ -9,10 +9,10 @@ class IndexViewTest(TestCase):
     def setUpTestData(cls):
         User.objects.create(username="test_user", password="test_password")
         for i in range(5):
-            Market.objects.create(ticker="EXAMPLE" + str(i), values=[i, i + 3, i + 2, i + 4, i + 5], volume=66666)
+            Market.objects.create(ticker="EXAMPLE" + str(i), values=json.dumps([i, i + 3, i + 2, i + 4, i + 5]), volume=66666)
     
     def test_check_template(self):
-        self.assertTemplateUsed(self.client.get("onlyProfits:/"), "onlyProfits_app/onlyProfits.html")
+        self.assertTemplateUsed(self.client.get("onlyProfits:/"), "onlyProfits_app/index.html")
     
     def test_context_dictionary(self):
         response = self.client.get(reverse("onlyProfits_app:index"))
@@ -33,7 +33,7 @@ class AccountViewTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         for i in range(5):
-            Market.objects.create(ticker="EXAMPLE" + str(i), values=[i, i + 3, i + 2, i + 4, i + 5], volume=66666)
+            Market.objects.create(ticker="EXAMPLE" + str(i), values=json.dumps([i, i + 3, i + 2, i + 4, i + 5]), volume=66666)
         test_user = User.objects.create_user(username="test_user", password="test_password")
         OnlyProfitsUser.objects.create(django_user=test_user, saved_markets=json.dumps(["EXAMPLE1", "EXAMPLE2"]))
     
@@ -50,7 +50,7 @@ class MarketsViewTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         for i in range(5):
-            Market.objects.create(ticker="EXAMPLE" + str(i), values=[i, i + 3, i + 2, i + 4, i + 5], volume=66666)
+            Market.objects.create(ticker="EXAMPLE" + str(i), values=json.dumps([i, i + 3, i + 2, i + 4, i + 5]), volume=66666)
     
     def test_check_template(self):
         self.assertTemplateUsed(self.client.get("onlyProfits:/markets"), "onlyProfits_app/markets.html")
@@ -66,7 +66,7 @@ class SavedMarketsViewTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         for i in range(3):
-            Market.objects.create(ticker="EXAMPLE" + str(i), values=[i, i + 3, i + 2, i + 4, i + 5], volume=66666)
+            Market.objects.create(ticker="EXAMPLE" + str(i), values=json.dumps([i, i + 3, i + 2, i + 4, i + 5]), volume=66666)
         test_user = User.objects.create_user(username="test_user", password="test_password")
         OnlyProfitsUser.objects.create(django_user=test_user, saved_markets=json.dumps(["EXAMPLE1", "EXAMPLE2"]))
     
@@ -84,7 +84,7 @@ class SavedMarketsViewTest(TestCase):
 class SpecficMarketViewTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        Market.objects.create(ticker="EXAMPLE1", values=[2, 3, 1, 6, 10], volume=66666)
+        Market.objects.create(ticker="EXAMPLE1", values=json.dumps([2, 3, 1, 6, 10]), volume=66666)
     
     def test_check_template(self):
         self.assertTemplateUsed(self.client.get("onlyProfits:/market/EXAMPLE1"), "onlyProfits_app/market.html")
