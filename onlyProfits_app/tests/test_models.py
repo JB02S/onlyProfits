@@ -29,11 +29,11 @@ class OnlyProfitsUserModelTestCase(TestCase):
         OnlyProfitsUser.objects.create(django_user=user, saved_markets=["EXAMPLE2", "EXAMPLE3"])
     
     def test_saved_markets_label(self):
-        user = OnlyProfitsUser.objects.get(django_user=User.objects.get(username='test_user'))
+        user = OnlyProfitsUser.objects.get(django_user=User.objects.get(username="test_user"))
         expected_field_label = user._meta.get_field("saved_markets").verbose_name
         self.assertEqual(expected_field_label, "saved markets")
     
     def test_username_label_length(self):
-        user = OnlyProfitsUser.objects.get(django_user=User.objects.get(username='test_user'))
+        user = OnlyProfitsUser.objects.get(django_user=User.objects.get(username="test_user"))
         expected_max_length = user.django_user._meta.get_field("username").max_length
         self.assertEqual(expected_max_length, 25)
