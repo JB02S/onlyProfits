@@ -12,18 +12,18 @@ class IndexViewTest(TestCase):
             Market.objects.create(ticker="EXAMPLE" + str(i), values=json.dumps([i, i + 3, i + 2, i + 4, i + 5]), volume=66666)
     
     def test_check_template(self):
-        self.assertTemplateUsed(self.client.get("onlyProfits:/"), "onlyProfits_app/index.html")
-    
+        self.assertTemplateUsed(self.client.get(reverse("onlyProfits_app:index")), "onlyProfits_app/index.html")
+
     def test_context_dictionary(self):
         response = self.client.get(reverse("onlyProfits_app:index"))
-        expected_markets = Market.objects.order_by("volume")
+        expected_markets = list(Market.objects.order_by("volume"))
         self.assertTrue("markets" in response.context)
-        self.assertEqual(response.context["markets"], expected_markets)
+        self.assertEqual(list(response.context["markets"]), expected_markets)
 
 
 class CreateAccountViewTest(TestCase):
     def test_check_template(self):
-        self.assertTemplateUsed(self.client.get("onlyProfits:/create_account"), "onlyProfits_app/create_account.html")
+        self.assertTemplateUsed(self.client.get(reverse("onlyProfits_app:create_account")), "onlyProfits_app/create_account.html")
     
     def test_context_dictionary(self):
         self.assertIsNone(self.client.get(reverse("onlyProfits_app:create_account")).context)
@@ -53,7 +53,7 @@ class MarketsViewTest(TestCase):
             Market.objects.create(ticker="EXAMPLE" + str(i), values=json.dumps([i, i + 3, i + 2, i + 4, i + 5]), volume=66666)
     
     def test_check_template(self):
-        self.assertTemplateUsed(self.client.get("onlyProfits:/markets"), "onlyProfits_app/markets.html")
+        self.assertTemplateUsed(self.client.get(reverse("onlyProfits_app:markets")), "onlyProfits_app/markets.html")
     
     def test_context_dictionary(self):
         response = self.client.get(reverse("onlyProfits_app:markets"))
@@ -71,7 +71,8 @@ class SavedMarketsViewTest(TestCase):
         OnlyProfitsUser.objects.create(django_user=test_user, saved_markets=json.dumps(["EXAMPLE1", "EXAMPLE2"]))
     
     def test_check_template(self):
-        self.assertTemplateUsed(self.client.get("onlyProfits:/test_user/saved_markets"), "onlyProfits_app/saved_markets.html")
+        self.assertTemplateUsed(self.client.get(reverse("onlyProfits_app:saved_markets", kwargs={'username':'test_user'}))
+                                , "onlyProfits_app/saved_markets.html")
     
     def test_context_dictionary(self):
         response = self.client.get(reverse("onlyProfits_app:saved_markets", kwargs={"username": "test_user"}))
@@ -87,7 +88,8 @@ class SpecficMarketViewTest(TestCase):
         Market.objects.create(ticker="EXAMPLE1", values=json.dumps([2, 3, 1, 6, 10]), volume=66666)
     
     def test_check_template(self):
-        self.assertTemplateUsed(self.client.get("onlyProfits:/market/EXAMPLE1"), "onlyProfits_app/market.html")
+        self.assertTemplateUsed(self.client.get(reverse("onlyProfits_app:market", kwargs={'ticker':'EXAMPLE1'})),
+                                "onlyProfits_app/market.html")
     
     def test_context_dictionary(self):
         response = self.client.get(reverse("onlyProfits_app:market", kwargs={"ticker": "EXAMPLE1"}))
