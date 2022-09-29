@@ -29,7 +29,6 @@ class AccountView(View):
 
 class CreateAccountView(View):
     def get(self, request):
-        print('yp')
         return render(request, "onlyProfits_app/create_account.html", {})
 
 
